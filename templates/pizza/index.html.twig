@@ -3,4 +3,32 @@
 {% block title %}Hello PizzaController!{% endblock %}
 
 {% block body %}
+<div class="d-flex flex-warp">
+{% for pizza in pizzas %}
+    <div class="card border-info m-3" id="card{{pizza.id}}"style="max-width: 20rem;">
+    <img href="{{pizza.imgPizza}}">
+    <div class="card-body">
+    <h4 class="card-title">{{pizza.namePizza}}</h4>
+        <p class="card-text" id="desc{{pizza.id}}" style="display: none;">{{pizza.descPizza}}</p>
+        <button class="btn btn-primary m-3" id="show{{pizza.id}}">détails</button>
+    </div>
+    </div>
+
+    <script>
+        let btn{{pizza.id}} = document.querySelector("#show{{pizza.id}}")
+        let desc{{pizza.id}} = document.querySelector("#desc{{pizza.id}}")
+        let state{{pizza.id}}= false;
+        btn{{pizza.id}}.addEventListener("click", function(){
+            if (state{{pizza.id}} == false){
+                desc{{pizza.id}}.style.display ="flex";
+                state{{pizza.id}} = true;
+            }else if (state{{pizza.id}} == true){
+                desc{{pizza.id}}.style.display ="none";
+                state{{pizza.id}} = false;
+            }
+        })
+
+    </script>
+{% endfor %}
+
 {% endblock %}
