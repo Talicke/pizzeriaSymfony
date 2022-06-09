@@ -9,6 +9,7 @@ use App\Entity\Pizza;
 use App\Entity\PizzaCart;
 use App\Entity\PizzaMenu;
 use App\Entity\Ingredient;
+use App\Entity\PizzaIngredient;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
@@ -95,8 +96,8 @@ class AppFixtures extends Fixture
                 $cart->setDateCart(new \DateTimeImmutable());
                 $cart->setUser($users[$faker->numberBetween(0, 19)]);
                  //stockage dans le manager
-                 $manager->persist($cart);
-                 $carts[] = $cart;
+                $manager->persist($cart);
+                $carts[] = $cart;
             } 
 
                 
@@ -114,21 +115,32 @@ class AppFixtures extends Fixture
                         $pizzaMenus[] = $pizzaMenu;
                 }
                 //Tableau vide qui va stocker les pizzaCarts  que l’on génère 
-             $pizzaCarts = [];
-             // Boucle qui va intérer 10 cartes factices   
-                 for($i=0; $i<20; $i++){
-                     $pizzaCart = new PizzaCart();
-                     //génération d'une carte factice
-                     $pizzaCart->setQuantite($faker->randomNumber(2));
-                     $pizzaCart->addPizza($pizzas[rand(0, 19)]);
-                     $pizzaCart->addCart($carts[rand(0, 9)]);
-                     //stockage dans le manager
-                     $manager->persist($pizzaCart);
-                         $pizzaCarts[] = $pizzaCart;
-                 } 
+            $pizzaCarts = [];
+            // Boucle qui va intérer 10 cartes factices   
+                for($i=0; $i<20; $i++){
+                    $pizzaCart = new PizzaCart();
+                    //génération d'une carte factice
+                    $pizzaCart->setQuantite($faker->randomNumber(2));
+                    $pizzaCart->addPizza($pizzas[rand(0, 19)]);
+                    $pizzaCart->addCart($carts[rand(0, 9)]);
+                    //stockage dans le manager
+                    $manager->persist($pizzaCart);
+                        $pizzaCarts[] = $pizzaCart;
+                } 
+
+            $pizzaIngredient = [];
+
+                for ($i=0; $i<50; $i++){
+                    $pizzaIngre = new PizzaIngredient();
+                    
+                    $pizzaIngre->setQuantite(rand(0, 20));
+                    $pizzaIngre->addIdPizza($pizzas[rand(0, 19)]);
+                    $pizzaIngre->addIngredient($ingredients[rand(0,29)]);
+
+                    $manager->persist($pizzaIngre);
+                        $pizzaIngredient[] = $pizzaIngre;
+                }
             
-         
-           
 
         $manager->flush();
     }

@@ -9,6 +9,11 @@
     <img src="{{pizza.imgPizza}}">
     <div class="card-body">
     <h4 class="card-title">{{pizza.namePizza}}</h4>
+        {% for ingredients in pizza.PizzaIngredient %}
+            {% for ingredients in pizzaingre %}
+               {% if ingredients. is defined %}
+            {% endfor %}
+        {% endfor %}
         <p class="card-text" id="desc{{pizza.id}}" style="display: none;">{{pizza.descPizza}}</p>
         <button class="btn btn-primary m-3" id="show{{pizza.id}}">détails</button>
     </div>
