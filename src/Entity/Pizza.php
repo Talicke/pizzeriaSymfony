@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PizzaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PizzaRepository::class)]
@@ -24,6 +26,22 @@ class Pizza
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $img_pizza;
+
+    #[ORM\ManyToMany(targetEntity: pizzaingredient::class, inversedBy: 'id_pizza')]
+    private $pizzaingredient;
+
+    #[ORM\ManyToMany(targetEntity: pizzacart::class, inversedBy: 'pizzas')]
+    private $pizzaCart;
+
+    #[ORM\ManyToMany(targetEntity: pizzamenu::class, inversedBy: 'pizzas')]
+    private $PizzaMenu;
+
+    public function __construct()
+    {
+        $this->pizzaingredient = new ArrayCollection();
+        $this->pizzaCart = new ArrayCollection();
+        $this->PizzaMenu = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +92,78 @@ class Pizza
     public function setImgPizza(?string $img_pizza): self
     {
         $this->img_pizza = $img_pizza;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, pizzaingredient>
+     */
+    public function getPizzaingredient(): Collection
+    {
+        return $this->pizzaingredient;
+    }
+
+    public function addPizzaingredient(pizzaingredient $pizzaingredient): self
+    {
+        if (!$this->pizzaingredient->contains($pizzaingredient)) {
+            $this->pizzaingredient[] = $pizzaingredient;
+        }
+
+        return $this;
+    }
+
+    public function removePizzaingredient(pizzaingredient $pizzaingredient): self
+    {
+        $this->pizzaingredient->removeElement($pizzaingredient);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, pizzacart>
+     */
+    public function getPizzaCart(): Collection
+    {
+        return $this->pizzaCart;
+    }
+
+    public function addPizzaCart(pizzacart $pizzaCart): self
+    {
+        if (!$this->pizzaCart->contains($pizzaCart)) {
+            $this->pizzaCart[] = $pizzaCart;
+        }
+
+        return $this;
+    }
+
+    public function removePizzaCart(pizzacart $pizzaCart): self
+    {
+        $this->pizzaCart->removeElement($pizzaCart);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, pizzamenu>
+     */
+    public function getPizzaMenu(): Collection
+    {
+        return $this->PizzaMenu;
+    }
+
+    public function addPizzaMenu(pizzamenu $pizzaMenu): self
+    {
+        if (!$this->PizzaMenu->contains($pizzaMenu)) {
+            $this->PizzaMenu[] = $pizzaMenu;
+        }
+
+        return $this;
+    }
+
+    public function removePizzaMenu(pizzamenu $pizzaMenu): self
+    {
+        $this->PizzaMenu->removeElement($pizzaMenu);
 
         return $this;
     }

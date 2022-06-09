@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -25,6 +27,14 @@ class User
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $password_user;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: cart::class)]
+    private $Cart;
+
+    public function __construct()
+    {
+        $this->Cart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,36 @@ class User
     public function setPasswordUser(?string $password_user): self
     {
         $this->password_user = $password_user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, cart>
+     */
+    public function getCart(): Collection
+    {
+        return $this->Cart;
+    }
+
+    public function addCart(cart $cart): self
+    {
+        if (!$this->Cart->contains($cart)) {
+            $this->Cart[] = $cart;
+            $cart->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(cart $cart): self
+    {
+        if ($this->Cart->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getUser() === $this) {
+                $cart->setUser(null);
+            }
+        }
 
         return $this;
     }

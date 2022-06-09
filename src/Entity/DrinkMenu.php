@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PizzaMenuRepository;
+use App\Repository\DrinkMenuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PizzaMenuRepository::class)]
-class PizzaMenu
+#[ORM\Entity(repositoryClass: DrinkMenuRepository::class)]
+class DrinkMenu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,17 +16,17 @@ class PizzaMenu
     private $id;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $quantite;
+    private $qunatite;
 
-    #[ORM\ManyToMany(targetEntity: Pizza::class, mappedBy: 'PizzaMenu')]
-    private $pizzas;
+    #[ORM\ManyToMany(targetEntity: Drink::class, mappedBy: 'DrinkMenu')]
+    private $drinks;
 
-    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'PizzaMenu')]
+    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'DrinkMenu')]
     private $menus;
 
     public function __construct()
     {
-        $this->pizzas = new ArrayCollection();
+        $this->drinks = new ArrayCollection();
         $this->menus = new ArrayCollection();
     }
 
@@ -35,40 +35,40 @@ class PizzaMenu
         return $this->id;
     }
 
-    public function getQuantite(): ?int
+    public function getQunatite(): ?int
     {
-        return $this->quantite;
+        return $this->qunatite;
     }
 
-    public function setQuantite(?int $quantite): self
+    public function setQunatite(?int $qunatite): self
     {
-        $this->quantite = $quantite;
+        $this->qunatite = $qunatite;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Pizza>
+     * @return Collection<int, Drink>
      */
-    public function getPizzas(): Collection
+    public function getDrinks(): Collection
     {
-        return $this->pizzas;
+        return $this->drinks;
     }
 
-    public function addPizza(Pizza $pizza): self
+    public function addDrink(Drink $drink): self
     {
-        if (!$this->pizzas->contains($pizza)) {
-            $this->pizzas[] = $pizza;
-            $pizza->addPizzaMenu($this);
+        if (!$this->drinks->contains($drink)) {
+            $this->drinks[] = $drink;
+            $drink->addDrinkMenu($this);
         }
 
         return $this;
     }
 
-    public function removePizza(Pizza $pizza): self
+    public function removeDrink(Drink $drink): self
     {
-        if ($this->pizzas->removeElement($pizza)) {
-            $pizza->removePizzaMenu($this);
+        if ($this->drinks->removeElement($drink)) {
+            $drink->removeDrinkMenu($this);
         }
 
         return $this;
@@ -86,7 +86,7 @@ class PizzaMenu
     {
         if (!$this->menus->contains($menu)) {
             $this->menus[] = $menu;
-            $menu->addPizzaMenu($this);
+            $menu->addDrinkMenu($this);
         }
 
         return $this;
@@ -95,7 +95,7 @@ class PizzaMenu
     public function removeMenu(Menu $menu): self
     {
         if ($this->menus->removeElement($menu)) {
-            $menu->removePizzaMenu($this);
+            $menu->removeDrinkMenu($this);
         }
 
         return $this;

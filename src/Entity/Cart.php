@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CartRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
@@ -15,6 +17,17 @@ class Cart
 
     #[ORM\Column(type: 'date', nullable: true)]
     private $date_cart;
+
+    #[ORM\ManyToMany(targetEntity: pizzacart::class, inversedBy: 'carts')]
+    private $PizzaCart;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Cart')]
+    private $user;
+
+    public function __construct()
+    {
+        $this->PizzaCart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +42,42 @@ class Cart
     public function setDateCart(?\DateTimeInterface $date_cart): self
     {
         $this->date_cart = $date_cart;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, pizzacart>
+     */
+    public function getPizzaCart(): Collection
+    {
+        return $this->PizzaCart;
+    }
+
+    public function addPizzaCart(pizzacart $pizzaCart): self
+    {
+        if (!$this->PizzaCart->contains($pizzaCart)) {
+            $this->PizzaCart[] = $pizzaCart;
+        }
+
+        return $this;
+    }
+
+    public function removePizzaCart(pizzacart $pizzaCart): self
+    {
+        $this->PizzaCart->removeElement($pizzaCart);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

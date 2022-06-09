@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DrinkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DrinkRepository::class)]
@@ -24,6 +26,14 @@ class Drink
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $img_drink;
+
+    #[ORM\ManyToMany(targetEntity: drinkmenu::class, inversedBy: 'drinks')]
+    private $DrinkMenu;
+
+    public function __construct()
+    {
+        $this->DrinkMenu = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,30 @@ class Drink
     public function setImgDrink(?string $img_drink): self
     {
         $this->img_drink = $img_drink;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, drinkmenu>
+     */
+    public function getDrinkMenu(): Collection
+    {
+        return $this->DrinkMenu;
+    }
+
+    public function addDrinkMenu(drinkmenu $drinkMenu): self
+    {
+        if (!$this->DrinkMenu->contains($drinkMenu)) {
+            $this->DrinkMenu[] = $drinkMenu;
+        }
+
+        return $this;
+    }
+
+    public function removeDrinkMenu(drinkmenu $drinkMenu): self
+    {
+        $this->DrinkMenu->removeElement($drinkMenu);
 
         return $this;
     }

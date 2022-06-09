@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MenuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
@@ -24,6 +26,18 @@ class Menu
 
     #[ORM\Column(type: 'float', nullable: true)]
     private $price_menu;
+
+    #[ORM\ManyToMany(targetEntity: pizzamenu::class, inversedBy: 'menus')]
+    private $PizzaMenu;
+
+    #[ORM\ManyToMany(targetEntity: drinkmenu::class, inversedBy: 'menus')]
+    private $DrinkMenu;
+
+    public function __construct()
+    {
+        $this->PizzaMenu = new ArrayCollection();
+        $this->DrinkMenu = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +88,54 @@ class Menu
     public function setPriceMenu(?float $price_menu): self
     {
         $this->price_menu = $price_menu;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, pizzamenu>
+     */
+    public function getPizzaMenu(): Collection
+    {
+        return $this->PizzaMenu;
+    }
+
+    public function addPizzaMenu(pizzamenu $pizzaMenu): self
+    {
+        if (!$this->PizzaMenu->contains($pizzaMenu)) {
+            $this->PizzaMenu[] = $pizzaMenu;
+        }
+
+        return $this;
+    }
+
+    public function removePizzaMenu(pizzamenu $pizzaMenu): self
+    {
+        $this->PizzaMenu->removeElement($pizzaMenu);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, drinkmenu>
+     */
+    public function getDrinkMenu(): Collection
+    {
+        return $this->DrinkMenu;
+    }
+
+    public function addDrinkMenu(drinkmenu $drinkMenu): self
+    {
+        if (!$this->DrinkMenu->contains($drinkMenu)) {
+            $this->DrinkMenu[] = $drinkMenu;
+        }
+
+        return $this;
+    }
+
+    public function removeDrinkMenu(drinkmenu $drinkMenu): self
+    {
+        $this->DrinkMenu->removeElement($drinkMenu);
 
         return $this;
     }
