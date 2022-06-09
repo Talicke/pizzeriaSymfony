@@ -97,7 +97,7 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzaingredient>
+     * @return Collection<int, PizzaIngredient>
      */
     public function getPizzaingredient(): Collection
     {
@@ -121,7 +121,7 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzacart>
+     * @return Collection<int, PizzaCart>
      */
     public function getPizzaCart(): Collection
     {
@@ -145,7 +145,7 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzamenu>
+     * @return Collection<int, PizzaMenu>
      */
     public function getPizzaMenu(): Collection
     {

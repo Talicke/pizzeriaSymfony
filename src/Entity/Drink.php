@@ -27,7 +27,7 @@ class Drink
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $img_drink;
 
-    #[ORM\ManyToMany(targetEntity: drinkmenu::class, inversedBy: 'drinks')]
+    #[ORM\ManyToMany(targetEntity: DrinkMenu::class, inversedBy: 'drinks')]
     private $DrinkMenu;
 
     public function __construct()
@@ -96,7 +96,7 @@ class Drink
         return $this->DrinkMenu;
     }
 
-    public function addDrinkMenu(drinkmenu $drinkMenu): self
+    public function addDrinkMenu(DrinkMenu $drinkMenu): self
     {
         if (!$this->DrinkMenu->contains($drinkMenu)) {
             $this->DrinkMenu[] = $drinkMenu;
@@ -105,7 +105,7 @@ class Drink
         return $this;
     }
 
-    public function removeDrinkMenu(drinkmenu $drinkMenu): self
+    public function removeDrinkMenu(DrinkMenu $drinkMenu): self
     {
         $this->DrinkMenu->removeElement($drinkMenu);
 

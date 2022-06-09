@@ -24,7 +24,7 @@ class Ingredient
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $img_ingredient;
 
-    #[ORM\ManyToMany(targetEntity: pizzaingredient::class, inversedBy: 'ingredients')]
+    #[ORM\ManyToMany(targetEntity: PizzaIngredient::class, inversedBy: 'ingredients')]
     private $pizzaingredient;
 
     public function __construct()
@@ -74,14 +74,14 @@ class Ingredient
     }
 
     /**
-     * @return Collection<int, pizzaingredient>
+     * @return Collection<int, PizzaIngredient>
      */
     public function getPizzaingredient(): Collection
     {
         return $this->pizzaingredient;
     }
 
-    public function addPizzaingredient(pizzaingredient $pizzaingredient): self
+    public function addPizzaingredient(PizzaIngredient $pizzaingredient): self
     {
         if (!$this->pizzaingredient->contains($pizzaingredient)) {
             $this->pizzaingredient[] = $pizzaingredient;
@@ -90,7 +90,7 @@ class Ingredient
         return $this;
     }
 
-    public function removePizzaingredient(pizzaingredient $pizzaingredient): self
+    public function removePizzaingredient(PizzaIngredient $pizzaingredient): self
     {
         $this->pizzaingredient->removeElement($pizzaingredient);
 

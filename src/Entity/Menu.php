@@ -93,7 +93,7 @@ class Menu
     }
 
     /**
-     * @return Collection<int, pizzamenu>
+     * @return Collection<int, PizzaMenu>
      */
     public function getPizzaMenu(): Collection
     {
