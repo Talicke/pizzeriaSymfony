@@ -28,7 +28,7 @@ class User
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $password_user;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: cart::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Cart::class)]
     private $Cart;
 
     public function __construct()
