@@ -27,13 +27,13 @@ class Pizza
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $img_pizza;
 
-    #[ORM\ManyToMany(targetEntity: pizzaingredient::class, inversedBy: 'id_pizza')]
+    #[ORM\ManyToMany(targetEntity: PizzaIngredient::class, inversedBy: 'id_pizza')]
     private $pizzaingredient;
 
-    #[ORM\ManyToMany(targetEntity: pizzacart::class, inversedBy: 'pizzas')]
+    #[ORM\ManyToMany(targetEntity: PizzaCart::class, inversedBy: 'pizzas')]
     private $pizzaCart;
 
-    #[ORM\ManyToMany(targetEntity: pizzamenu::class, inversedBy: 'pizzas')]
+    #[ORM\ManyToMany(targetEntity: PizzaMenu::class, inversedBy: 'pizzas')]
     private $PizzaMenu;
 
     public function __construct()
@@ -97,14 +97,14 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzaingredient>
+     * @return Collection<int, PizzaIngredient>
      */
     public function getPizzaingredient(): Collection
     {
         return $this->pizzaingredient;
     }
 
-    public function addPizzaingredient(pizzaingredient $pizzaingredient): self
+    public function addPizzaingredient(PizzaIngredient $pizzaingredient): self
     {
         if (!$this->pizzaingredient->contains($pizzaingredient)) {
             $this->pizzaingredient[] = $pizzaingredient;
@@ -113,7 +113,7 @@ class Pizza
         return $this;
     }
 
-    public function removePizzaingredient(pizzaingredient $pizzaingredient): self
+    public function removePizzaingredient(PizzaIngredient $pizzaingredient): self
     {
         $this->pizzaingredient->removeElement($pizzaingredient);
 
@@ -121,14 +121,14 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzacart>
+     * @return Collection<int, PizzaCart>
      */
     public function getPizzaCart(): Collection
     {
         return $this->pizzaCart;
     }
 
-    public function addPizzaCart(pizzacart $pizzaCart): self
+    public function addPizzaCart(PizzaCart $pizzaCart): self
     {
         if (!$this->pizzaCart->contains($pizzaCart)) {
             $this->pizzaCart[] = $pizzaCart;
@@ -137,7 +137,7 @@ class Pizza
         return $this;
     }
 
-    public function removePizzaCart(pizzacart $pizzaCart): self
+    public function removePizzaCart(PizzaCart $pizzaCart): self
     {
         $this->pizzaCart->removeElement($pizzaCart);
 
@@ -145,14 +145,14 @@ class Pizza
     }
 
     /**
-     * @return Collection<int, pizzamenu>
+     * @return Collection<int, PizzaMenu>
      */
     public function getPizzaMenu(): Collection
     {
         return $this->PizzaMenu;
     }
 
-    public function addPizzaMenu(pizzamenu $pizzaMenu): self
+    public function addPizzaMenu(PizzaMenu $pizzaMenu): self
     {
         if (!$this->PizzaMenu->contains($pizzaMenu)) {
             $this->PizzaMenu[] = $pizzaMenu;
@@ -161,7 +161,7 @@ class Pizza
         return $this;
     }
 
-    public function removePizzaMenu(pizzamenu $pizzaMenu): self
+    public function removePizzaMenu(PizzaMenu $pizzaMenu): self
     {
         $this->PizzaMenu->removeElement($pizzaMenu);
 

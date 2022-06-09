@@ -90,14 +90,14 @@ class User
     }
 
     /**
-     * @return Collection<int, cart>
+     * @return Collection<int, Cart>
      */
     public function getCart(): Collection
     {
         return $this->Cart;
     }
 
-    public function addCart(cart $cart): self
+    public function addCart(Cart $cart): self
     {
         if (!$this->Cart->contains($cart)) {
             $this->Cart[] = $cart;
@@ -107,7 +107,7 @@ class User
         return $this;
     }
 
-    public function removeCart(cart $cart): self
+    public function removeCart(Cart $cart): self
     {
         if ($this->Cart->removeElement($cart)) {
             // set the owning side to null (unless already changed)

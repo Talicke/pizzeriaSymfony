@@ -27,10 +27,10 @@ class Menu
     #[ORM\Column(type: 'float', nullable: true)]
     private $price_menu;
 
-    #[ORM\ManyToMany(targetEntity: pizzamenu::class, inversedBy: 'menus')]
+    #[ORM\ManyToMany(targetEntity: PizzaMenu::class, inversedBy: 'menus')]
     private $PizzaMenu;
 
-    #[ORM\ManyToMany(targetEntity: drinkmenu::class, inversedBy: 'menus')]
+    #[ORM\ManyToMany(targetEntity: DrinkMenu::class, inversedBy: 'menus')]
     private $DrinkMenu;
 
     public function __construct()
@@ -93,14 +93,14 @@ class Menu
     }
 
     /**
-     * @return Collection<int, pizzamenu>
+     * @return Collection<int, PizzaMenu>
      */
     public function getPizzaMenu(): Collection
     {
         return $this->PizzaMenu;
     }
 
-    public function addPizzaMenu(pizzamenu $pizzaMenu): self
+    public function addPizzaMenu(PizzaMenu $pizzaMenu): self
     {
         if (!$this->PizzaMenu->contains($pizzaMenu)) {
             $this->PizzaMenu[] = $pizzaMenu;
@@ -109,7 +109,7 @@ class Menu
         return $this;
     }
 
-    public function removePizzaMenu(pizzamenu $pizzaMenu): self
+    public function removePizzaMenu(PizzaMenu $pizzaMenu): self
     {
         $this->PizzaMenu->removeElement($pizzaMenu);
 
@@ -124,7 +124,7 @@ class Menu
         return $this->DrinkMenu;
     }
 
-    public function addDrinkMenu(drinkmenu $drinkMenu): self
+    public function addDrinkMenu(DrinkMenu $drinkMenu): self
     {
         if (!$this->DrinkMenu->contains($drinkMenu)) {
             $this->DrinkMenu[] = $drinkMenu;
@@ -133,7 +133,7 @@ class Menu
         return $this;
     }
 
-    public function removeDrinkMenu(drinkmenu $drinkMenu): self
+    public function removeDrinkMenu(DrinkMenu $drinkMenu): self
     {
         $this->DrinkMenu->removeElement($drinkMenu);
 

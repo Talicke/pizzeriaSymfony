@@ -18,7 +18,7 @@ class Cart
     #[ORM\Column(type: 'date', nullable: true)]
     private $date_cart;
 
-    #[ORM\ManyToMany(targetEntity: pizzacart::class, inversedBy: 'carts')]
+    #[ORM\ManyToMany(targetEntity: PizzaCart::class, inversedBy: 'carts')]
     private $PizzaCart;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Cart')]
@@ -54,7 +54,7 @@ class Cart
         return $this->PizzaCart;
     }
 
-    public function addPizzaCart(pizzacart $pizzaCart): self
+    public function addPizzaCart(PizzaCart $pizzaCart): self
     {
         if (!$this->PizzaCart->contains($pizzaCart)) {
             $this->PizzaCart[] = $pizzaCart;
@@ -63,7 +63,7 @@ class Cart
         return $this;
     }
 
-    public function removePizzaCart(pizzacart $pizzaCart): self
+    public function removePizzaCart(PizzaCart $pizzaCart): self
     {
         $this->PizzaCart->removeElement($pizzaCart);
 
