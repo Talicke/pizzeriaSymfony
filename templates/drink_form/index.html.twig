@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tu bois Quoi?{% endblock %}
+
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_label(form.name_drink) }}
+        {{ form_widget(form.name_drink) }}
+        {{ form_label(form.price_drink) }}
+        {{ form_widget(form.price_drink) }}
+        {{ form_label(form.desc_drink) }}
+        {{ form_widget(form.desc_drink) }}
+        {{ form_label(form.img_drink) }}
+        {{ form_widget(form.img_drink) }}
+        {{ form_rest(form) }}
+        <button type="submit">Enregistre ta nouvelle boisson</button>
+    {{ form_end(form) }}
+{% endblock %}
