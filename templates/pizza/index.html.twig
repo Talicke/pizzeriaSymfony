@@ -3,6 +3,11 @@
 {% block title %}Hello PizzaController!{% endblock %}
 
 {% block body %}
+        {% block stylesheets %}
+<link rel="stylesheet" href="/asset/style/bootstrap.min.css">
+
+<link rel="stylesheet" href="/asset/style/pizzas.css">
+        {% endblock %}
 <div class="d-flex flex-wrap">
 {% for pizza in pizzas %}
     <div class="card border-info m-3" id="card{{pizza.id}}"style="max-width: 20rem;">

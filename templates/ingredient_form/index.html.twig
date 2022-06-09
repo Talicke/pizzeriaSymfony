@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}c'est quoi cette M****{% endblock %}
+
+
+{% block body %}
+        {% block stylesheets %}
+<link rel="stylesheet" href="/asset/style/bootstrap.min.css">
+
+<link rel="stylesheet" href="/asset/style/ingredient.css">
+        {% endblock %}
+    <div class="container">
+    {{ form_start(form) }}
+        <div class="label1">{{ form_label(form.name_ingredient) }}
+        {{ form_widget(form.name_ingredient) }}
+
+         <div class="label1">{{ form_label(form.desc_ingredient) }}
+        {{ form_widget(form.desc_ingredient) }}
+
+        <div class="label1">{{ form_label(form.img_ingredient) }}
+        {{ form_widget(form.img_ingredient) }}
+
+        {{ form_rest(form) }}
+        <button type="submit" class="btn">Enregistre ton nouvel ingredient</button>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

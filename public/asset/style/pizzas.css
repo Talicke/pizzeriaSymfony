@@ -1,0 +1,12 @@
+body{
+    background-image: url(../img/pizzas.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.d-flex :hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+    background-color:whitesmoke;
+    color:black;
+}
